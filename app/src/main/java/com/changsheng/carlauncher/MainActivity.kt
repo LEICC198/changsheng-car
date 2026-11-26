@@ -240,12 +240,9 @@ class MainActivity : AppCompatActivity(), LocationListener {
             }
             val list = parking.getHistory()
             tvHistory.text = if (list.isEmpty()) "暂无停车历史记录"
-            else list.joinToString("
-
-") {
-                "• ${it.spot}（${ParkingManager.formatDuration(it.durationSec)}）
-  ${it.startStr} → ${it.endStr} | GPS: ${it.coord}"
-            }
+            else list.joinToString("\n\n") {
+             "• ${it.spot}（${ParkingManager.formatDuration(it.durationSec)}）\n  ${it.startStr} → ${it.endStr} | GPS: ${it.coord}"
+         }
         }
 
         btnAction.setOnClickListener {
