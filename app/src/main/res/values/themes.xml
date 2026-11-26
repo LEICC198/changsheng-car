@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.ChangshengLauncher" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">@color/dark_bg_canvas</item>
+        <item name="android:navigationBarColor">@color/dock_bg</item>
+    </style>
+</resources>

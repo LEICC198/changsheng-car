@@ -1,0 +1,20 @@
+<resources>
+    <color name="dark_bg_canvas">#0B0F1A</color>
+    <color name="dark_bg_left">#B80B101A</color>
+    <color name="dark_bg_card">#AE141E2E</color>
+    <color name="dark_text_primary">#F8FAFC</color>
+    <color name="dark_text_secondary">#CBD5E1</color>
+
+    <color name="light_bg_canvas">#EFF3F8</color>
+    <color name="light_bg_left">#99FFFFFF</color>
+    <color name="light_bg_card">#CCFFFFFF</color>
+    <color name="light_text_primary">#0F172A</color>
+    <color name="light_text_secondary">#475569</color>
+
+    <color name="dock_bg">#E6090D15</color>
+    <color name="accent_blue">#38BDF8</color>
+    <color name="accent_btn">#2563EB</color>
+    <color name="accent_red">#F87171</color>
+    <color name="accent_green">#22C55E</color>
+    <color name="accent_amber">#F59E0B</color>
+</resources>
