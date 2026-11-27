@@ -16,13 +16,39 @@
         android:orientation="horizontal"
         android:paddingHorizontal="16dp">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/btnQuickConnGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ARRIZO · 艾瑞泽"
-            android:textColor="@color/accent_blue"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivQuickWifi"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_wifi"
+                android:contentDescription="WiFi快捷开关" />
+
+            <ImageView
+                android:id="@+id/ivQuickHotspot"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_hotspot"
+                android:contentDescription="热点快捷开关" />
+
+            <ImageView
+                android:id="@+id/ivQuickBt"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_bluetooth"
+                android:contentDescription="蓝牙快捷开关" />
+        </LinearLayout>
 
         <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
 

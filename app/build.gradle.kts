@@ -11,8 +11,8 @@ android {
         applicationId = "com.changsheng.carlauncher"
         minSdk = 26
         targetSdk = 33
-        versionCode = 5
-        versionName = "5.0.0"
+        versionCode = 6
+        versionName = "6.0.0"
     }
 
     buildTypes {

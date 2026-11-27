@@ -1,6 +1,8 @@
 package com.changsheng.carlauncher
 
 import android.Manifest
+import android.bluetooth.BluetoothAdapter
+import android.net.wifi.WifiManager
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -130,9 +132,11 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     private fun setupControls() {
         findViewById<View>(R.id.btnClockCalendar).setOnClickListener { showMiniCalendar() }
+        findViewById<View>(R.id.btnQuickConnGroup).setOnClickListener { showConnectivityDialog() }
 
         findViewById<View>(R.id.btnQuickPark).setOnClickListener {
             if (!parking.isParkingActive()) {
+                ChimePlayer.playParkingChime(true)
                 parking.startParking("默认车位", lastGpsCoord)
                 updateParkingBadge()
                 Toast.makeText(this, "已开始停车计时并保存 GPS", Toast.LENGTH_SHORT).show()
@@ -240,15 +244,14 @@ class MainActivity : AppCompatActivity(), LocationListener {
             }
             val list = parking.getHistory()
             tvHistory.text = if (list.isEmpty()) "暂无停车历史记录"
-            else list.joinToString("\n\n") {
-             "• ${it.spot}（${ParkingManager.formatDuration(it.durationSec)}）\n  ${it.startStr} → ${it.endStr} | GPS: ${it.coord}"
-         }
+            else list.joinToString("\n\n") { "• ${it.spot}（${ParkingManager.formatDuration(it.durationSec)}）\n  ${it.startStr} → ${it.endStr} | GPS: ${it.coord}" }
         }
 
         btnAction.setOnClickListener {
             if (parking.isParkingActive()) {
                 parking.finishParking()?.let { showParkingSummaryBanner("手动结束", it) }
             } else {
+                ChimePlayer.playParkingChime(true)
                 parking.startParking(etSpot.text.toString().trim(), lastGpsCoord)
             }
             updateParkingBadge()
@@ -259,6 +262,58 @@ class MainActivity : AppCompatActivity(), LocationListener {
             refreshDialog()
         }
         refreshDialog()
+        dialog.show()
+    }
+
+    private fun showConnectivityDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_connectivity)
+        val wifiMgr = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val btAdapter = BluetoothAdapter.getDefaultAdapter()
+
+        val btnWifi = dialog.findViewById<TextView>(R.id.btnConnWifi)
+        val btnHotspot = dialog.findViewById<TextView>(R.id.btnConnHotspot)
+        val btnBt = dialog.findViewById<TextView>(R.id.btnConnBt)
+        val btnSys = dialog.findViewById<TextView>(R.id.btnConnSysWifi)
+
+        fun refreshLabels() {
+            btnWifi.text = "WLAN / Wi-Fi：${if (wifiMgr.isWifiEnabled) "已开启（点此关闭）" else "已关闭（点此开启）"}"
+            val btOn = btAdapter?.isEnabled == true
+            btnBt.text = "车载蓝牙：${if (btOn) "已开启（点此关闭）" else "已关闭（点此开启）"}"
+        }
+
+        btnWifi.setOnClickListener {
+            try {
+                @Suppress("DEPRECATION")
+                wifiMgr.isWifiEnabled = !wifiMgr.isWifiEnabled
+                Toast.makeText(this, "正在切换 Wi-Fi 状态", Toast.LENGTH_SHORT).show()
+                btnWifi.postDelayed({ refreshLabels() }, 400L)
+            } catch (_: Exception) {
+                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+            }
+        }
+        btnHotspot.setOnClickListener {
+            dialog.dismiss()
+            try {
+                startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+            } catch (_: Exception) {
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
+        }
+        btnBt.setOnClickListener {
+            try {
+                if (btAdapter?.isEnabled == true) btAdapter.disable() else btAdapter?.enable()
+                Toast.makeText(this, "正在切换蓝牙状态", Toast.LENGTH_SHORT).show()
+                btnBt.postDelayed({ refreshLabels() }, 400L)
+            } catch (_: Exception) {
+                startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
+            }
+        }
+        btnSys.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+        }
+        refreshLabels()
         dialog.show()
     }
 

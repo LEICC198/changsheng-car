@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp" android:layout_height="wrap_content"
+    android:background="@color/dark_bg_card" android:orientation="vertical" android:padding="18dp">
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="网络与蓝牙快捷控制" android:textColor="@color/dark_text_primary"
+        android:textSize="16sp" android:textStyle="bold" />
+
+    <TextView android:id="@+id/btnConnWifi" android:layout_width="match_parent" android:layout_height="44dp"
+        android:layout_marginTop="12dp" android:background="@drawable/bg_pill_outline"
+        android:gravity="center_vertical" android:paddingHorizontal="16dp"
+        android:text="WLAN / Wi-Fi：点击切换开关" android:textColor="@color/dark_text_primary" android:textSize="13sp" />
+
+    <TextView android:id="@+id/btnConnHotspot" android:layout_width="match_parent" android:layout_height="44dp"
+        android:layout_marginTop="10dp" android:background="@drawable/bg_pill_outline"
+        android:gravity="center_vertical" android:paddingHorizontal="16dp"
+        android:text="个人热点设置（连 ZLINK 时建议关闭）" android:textColor="@color/dark_text_primary" android:textSize="13sp" />
+
+    <TextView android:id="@+id/btnConnBt" android:layout_width="match_parent" android:layout_height="44dp"
+        android:layout_marginTop="10dp" android:background="@drawable/bg_pill_outline"
+        android:gravity="center_vertical" android:paddingHorizontal="16dp"
+        android:text="车载蓝牙：点击切换开关" android:textColor="@color/dark_text_primary" android:textSize="13sp" />
+
+    <TextView android:id="@+id/btnConnSysWifi" android:layout_width="match_parent" android:layout_height="38dp"
+        android:layout_marginTop="10dp" android:background="@drawable/bg_pill_blue"
+        android:gravity="center" android:text="打开详细 Wi-Fi / 蓝牙列表" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+</LinearLayout>
